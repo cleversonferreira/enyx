@@ -1,0 +1,35 @@
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  enyx-mysql-data:
+    driver: local
+
+services:
+  # MySQL (5.7)
+  mysql:
+    image: ambientum/mysql:5.7
+    container_name: enyx-mysql
+    volumes:
+      - enyx-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=enyx
+      - MYSQL_DATABASE=enyx
+      - MYSQL_USER=enyx
+      - MYSQL_PASSWORD=enyx
+
+  # PHP (with Caddy)
+  app:
+    image: ambientum/php:7.1-caddy
+    container_name: enyx-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
+
