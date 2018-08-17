@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +15,7 @@ class UserController extends Controller
     public function apiToken(Request $request)
     {
         $data = $request->only('email', 'password');
-        $token = \Auth::guard('api')->attempt($data);
+        $token = Auth::guard('api')->attempt($data);
 
         return User::verifyLoginToken($token);
     }

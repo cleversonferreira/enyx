@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoardsTable extends Migration
+class CreatePlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateBoardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('boards', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('status');
             $table->integer('user');
-            $table->integer('local');
             $table->string('name');
-            $table->string('mqtt_broker');
-            $table->integer('mqtt_port');
-            $table->string('mqtt_user');
-            $table->string('mqtt_pass');
-            $table->string('mqtt_publish');
-            $table->string('mqtt_subscribe');
+            $table->integer('status');
+            $table->string('token');
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ class CreateBoardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boards');
+        Schema::dropIfExists('places');
     }
 }
